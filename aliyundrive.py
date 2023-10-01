@@ -38,6 +38,8 @@ class Aliyundrive:
             flag, message = self._get_reward(access_token, signin_count)
             if not flag:
                 return handle_error(f'get_reward error: {message}')
+                
+            flag, message = self._get_reward(access_token, signin_count)  # 根据 need_to_get_reward 决定是否领取奖励
 
             flag, message, reward_notice, task_notice = self._get_task(access_token)
             if not flag:
@@ -118,6 +120,10 @@ class Aliyundrive:
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def _get_reward(self, access_token: str, sign_day: int) -> tuple[bool, str]:
+            # 添加条件来判断是否需要领取奖励
+        if not need_to_get_reward:  # 这里需要替换成你自己的条件
+            return True, 'No reward needed'  # 返回一个虚拟的成功消息
+
         url = 'https://member.aliyundrive.com/v1/activity/sign_in_reward'
         payload = {'signInDay': sign_day}
         params = {'_rx-s': 'mobile'}
