@@ -87,7 +87,7 @@ class Aliyundrive:
     :return tuple[0]: 是否成功
     :return tuple[1]: 签到次数
     :return tuple[2]: message
-    """
+    
 
     @retry(stop=stop_after_attempt(3), wait=wait_fixed(1))
     def _check_in(self, access_token: str) -> tuple[bool, int, str]:
@@ -106,7 +106,7 @@ class Aliyundrive:
         signin_count = data['result']['signInCount']
 
         return success, signin_count, ''
-
+    """
     """
     获得奖励
 
